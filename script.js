@@ -23,15 +23,8 @@ function loadSong(song) {
   cover.src = `images/${song}.jpg`;
 }
 
-playBtn.addEventListener("click", () => {
-  const isPlaying = musicContainer.classList.contains("play");
-  if (isPlaying) {
-    pauseSong();
-  } else {
-    playSong();
-  }
-});
 
+//play song
 function playSong() {   
     musicContainer.classList.add("play");
     playBtn.querySelector("i.fas").classList.remove("fa-play");
@@ -46,3 +39,33 @@ function pauseSong() {
     audio.pause();
 }
 
+playBtn.addEventListener("click", () => {
+    const isPlaying = musicContainer.classList.contains("play");
+    if (isPlaying) {
+      pauseSong();
+    } else {
+      playSong();
+    }
+  });
+
+  //prev and next song
+  prevBtn.addEventListener("click", prevSong);
+  nextBtn.addEventListener("click", nextSong);
+  
+  function prevSong() {
+    songIndex--;
+    if (songIndex < 0) {
+        songIndex = songs.length - 1;
+    }
+    loadSong(songs[songIndex]);
+    playSong();
+}
+
+function nextSong() {
+    songIndex++;
+    if (songIndex > songs.length - 1) {
+        songIndex = 0;
+    }
+    loadSong(songs[songIndex]);
+    playSong();
+}
